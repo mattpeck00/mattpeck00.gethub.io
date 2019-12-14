@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>UWL Campus Map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet" type='text/css'>
+<script src='js/leaflet.js'></script> 
+<script src='js/mapbox.js'></script>       
+<link href='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.css' rel='stylesheet' />
+<script src="js/jquery-3.4.1.min.js"></script>
+<link src = images/bus.png id = busicon >
+<style>
+body {
+	padding: 0;
+	margin: 0;
+}
+html, body, #map {
+	height: 100%;
+	width: 100vw;
+    font-family: 'Merriweather',serif;
+}
+#map{
+    z-index: 1;
+}
+
+.header img{
+    max-height: 65px;
+    max-width: 65px;
+}
+.header {
+    position: fixed;
+    padding: 1%;
+    left: 70px;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    top: 3px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+ 
+.legend ul{
+    background-color: white;
+    position: absolute;
+    width: 150px;
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    list-style: none;
+    flex-direction: column;
+    border-radius: 5px;
+    opacity: 0;
+    pointer-events: all;
+    transform: translateY(10);
+    transition: all 0.4s ease;
+}
+    
+.header .legend button{
+    background: none;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+    }
+    
+.header .legend button:hover{
+    color: darkred;    
+    }
+.legend ul:hover{
+    background color: floralwhite;
+    }
+.legend button:focus + ul{
+    opacity: 1;
+    pointer-events:all;
+    transform: translateY(0px);
+    }
+.buildingpopup img {
+    max-height: 100px;
+    max-width: 100px;
+    }
+.legend {
+    position: fixed;
+    padding: 1%;
+    right: 70px;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    top: 3px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+</style>
+</head>
+<body>
+
+<div class = "header">
+    <div class = "Logo"><a href ="https://www.uwlax.edu/" title="Go to UW Lacrosse Home" id="logo" data-hveid="7"><img src="https://d28htnjz2elwuj.cloudfront.net/wp-content/uploads/2019/05/07160631/University-of-Wisconsin-La-Crosse-300x300.jpg" alt = "UW La Crosse" id = uwllogo></a></div></div>
+<div class= "legend" title = "Open Legend">
+<button id=legendbutt > Legend </button>
+<ul>
+    <li><button class = busbutton> Bus Stop </button></li>
+    <li><button class = emergbutton> Emergency Phones </button></li>
+</ul>
+</div>
+
+<div id="map"></div>
+
+<script>
+var phonelayer;
+var buslayer;
+var corner1 = L.latLng(43.829, -91.250), 
+    corner2 = L.latLng(43.805,-91.215), 
+    bounds = L.latLngBounds(corner1,corner2);
+    
+L.mapbox.accessToken = 'pk.eyJ1IjoibWF0dHBlY2swMCIsImEiOiJjanZ6ZXJkeGcwcG5hM3pwOGx4eTA4cjd6In0.4mPELfi1QtnaeZ7EbBuq-w';
+        var map = L.mapbox.map('map')
+        .setView([43.816, -91.229],16)
+        .setMaxBounds(bounds)
+        .setMinZoom(16)
+        .addLayer(L.mapbox.styleLayer('mapbox://styles/mattpeck00/ck20uphjm06cw1cn2i6mk2hp7'));
+
+
+// loading a building geoJSON generated from qGIS  
+
+var buildings = $.getJSON('geojson/buildings.geojson',function(buildings){
+    var buildings_style = {"color": "#ff4d4d", "weight":0 };
+    L.geoJson(buildings,{ 
+        style: buildings_style,
+        onEachFeature: function(feature,layer){
+            layer.bindPopup(feature.properties.name + 
+                       '<div class=buildingpopup>'+ '<img src =' + feature.properties.URL + '/>'+ '</div>');
+        }}).addTo(map)});
+
+var landscaping = $.getJSON('geojson/landscaping.geojson', function(landscaping){
+    var landscaping_style = {"color": "#339933", "weight":0, "opacity": 0};
+    L.geoJson(landscaping,{
+        style: landscaping_style,     
+    }).addTo(map)});
+    
+var sidewalks = $.getJSON('geojson/sidewalks.geojson', function(sidewalks){
+    var sidewalks_style={"color": "#b3b3b3", "weight":0};
+    L.geoJson(sidewalks, {
+        style: sidewalks_style,
+    }).addTo(map)});
+
+var student_dorms = $.getJSON('geojson/student_dorms.geojson',function(student_dorms){
+    var student_dorms_style = {"color": "#ff4d4d", "weight":0 };
+    L.geoJson(student_dorms,{ 
+        style: student_dorms_style,
+        onEachFeature: function(feature,layer){
+            layer.bindPopup("Student Dorm:" + '<br>' + feature.properties.name);
+        }}).addTo(map)});
+
+var emerg_phone = $.getJSON('geojson/emergency_phones.geojson', function(emerg_phone){
+    var phone_style = L.icon({iconUrl: 'images/bluelight.png', iconSize: [20,20]});
+    phonelayer = L.geoJson(emerg_phone, {
+        onEachFeature: function(feature,layer){
+            layer.setIcon(phone_style);
+        }});
+});
+    
+var busstop = $.getJSON('geojson/busstop.geojson', function(busstop){
+    var bus_stopstyle = L.icon({iconUrl: 'images/bus.png', iconSize: [20,20]});
+    //var bus_stopstyle = L.icon({iconUrl: 'bus.png', iconSize:[20, 20]});
+    buslayer = L.geoJson(busstop, {
+        onEachFeature: function(feature,layer){
+            layer.setIcon(bus_stopstyle);
+    }});
+    
+});
+
+$(document).ready(function() {
+    $(".emergbutton").click(function(){
+        //alert("button");
+        if(map.hasLayer(phonelayer)){
+            map.removeLayer(phonelayer);
+        } else {
+            map.addLayer(phonelayer);
+        };
+    }); 
+});
+    
+$(document).ready(function() {
+    $(".busbutton").click(function(){
+        //alert("button");
+        if(map.hasLayer(buslayer)){
+            map.removeLayer(buslayer);
+        } else {
+            map.addLayer(buslayer);
+        };
+    }); 
+});
+
+
+
+
+</script>
+</body>
+</html>

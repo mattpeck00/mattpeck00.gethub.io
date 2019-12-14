@@ -1,0 +1,24 @@
+{
+"type": "FeatureCollection",
+"name": "emergency_phones",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Campus_Pol": "(608) 789-9000", "Downtown_P": "(608) 789-7200" }, "geometry": { "type": "Point", "coordinates": [ -91.232961911946433, 43.817035416180758 ] } },
+{ "type": "Feature", "properties": { "Campus_Pol": "(608) 789-9000", "Downtown_P": "(608) 789-7200" }, "geometry": { "type": "Point", "coordinates": [ -91.230879948596183, 43.816936154596306 ] } },
+{ "type": "Feature", "properties": { "Campus_Pol": "(608) 789-9000", "Downtown_P": "(608) 789-7200" }, "geometry": { "type": "Point", "coordinates": [ -91.230066975060694, 43.816400236547125 ] } },
+{ "type": "Feature", "properties": { "Campus_Pol": "(608) 789-9000", "Downtown_P": "(608) 789-7200" }, "geometry": { "type": "Point", "coordinates": [ -91.229723025409754, 43.815312316444263 ] } },
+{ "type": "Feature", "properties": { "Campus_Pol": "(608) 789-9000", "Downtown_P": "(608) 789-7200" }, "geometry": { "type": "Point", "coordinates": [ -91.229125537947994, 43.813717904138286 ] } },
+{ "type": "Feature", "properties": { "Campus_Pol": "(608) 789-9000", "Downtown_P": "(608) 789-7200" }, "geometry": { "type": "Point", "coordinates": [ -91.230991793340635, 43.813383733806191 ] } },
+{ "type": "Feature", "properties": { "Campus_Pol": "(608) 789-9000", "Downtown_P": "(608) 789-7200" }, "geometry": { "type": "Point", "coordinates": [ -91.232777359359517, 43.814344786014061 ] } },
+{ "type": "Feature", "properties": { "Campus_Pol": "(608) 789-9000", "Downtown_P": "(608) 789-7200" }, "geometry": { "type": "Point", "coordinates": [ -91.232530743966265, 43.816103206517468 ] } },
+{ "type": "Feature", "properties": { "Campus_Pol": "(608) 789-9000", "Downtown_P": "(608) 789-7200" }, "geometry": { "type": "Point", "coordinates": [ -91.234750341794438, 43.817079834224721 ] } },
+{ "type": "Feature", "properties": { "Campus_Pol": "(608) 789-9000", "Downtown_P": "(608) 789-7200" }, "geometry": { "type": "Point", "coordinates": [ -91.228076329052342, 43.815042182164305 ] } },
+{ "type": "Feature", "properties": { "Campus_Pol": "(608) 789-9000", "Downtown_P": "(608) 789-7200" }, "geometry": { "type": "Point", "coordinates": [ -91.234749821669894, 43.81533884410748 ] } },
+{ "type": "Feature", "properties": { "Campus_Pol": "(608) 789-9000", "Downtown_P": "(608) 789-7200" }, "geometry": { "type": "Point", "coordinates": [ -91.234337489564595, 43.815490180878633 ] } },
+{ "type": "Feature", "properties": { "Campus_Pol": "(608) 789-9000", "Downtown_P": "(608) 789-7200" }, "geometry": { "type": "Point", "coordinates": [ -91.229294820971703, 43.816822846017118 ] } },
+{ "type": "Feature", "properties": { "Campus_Pol": "(608) 789-9000", "Downtown_P": "(608) 789-7200" }, "geometry": { "type": "Point", "coordinates": [ -91.228724249730789, 43.817010092300094 ] } },
+{ "type": "Feature", "properties": { "Campus_Pol": "(608) 789-9000", "Downtown_P": "(608) 789-7200" }, "geometry": { "type": "Point", "coordinates": [ -91.228103486920006, 43.815677933045848 ] } },
+{ "type": "Feature", "properties": { "Campus_Pol": "(608) 789-9000", "Downtown_P": "(608) 789-7200" }, "geometry": { "type": "Point", "coordinates": [ -91.233774028489137, 43.815962799220294 ] } },
+{ "type": "Feature", "properties": { "Campus_Pol": "(608) 789-9000", "Downtown_P": "(608) 789-7200" }, "geometry": { "type": "Point", "coordinates": [ -91.230857696428288, 43.816133529648468 ] } }
+]
+}

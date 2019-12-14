@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>UW La Crosse Campus Map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet" type='text/css'>
+<script src='mapbox.js'></script>
+
+<link href='leaflet.css' rel='stylesheet' />
+<script src="./jquery-3.4.1.min.js"></script>
+
+<style>
+body {
+	padding: 0;
+	margin: 0;
+}
+html, body, #map {
+	height: 100%;
+	width: 100vw;
+    font-family: 'Merriweather',serif;
+}
+#map{
+    z-index: 1;
+    }
+    
+#mapHeader {
+    position:absolute;
+    z-index: 10;
+    left:50px
+}
+#uwllogo {
+    height:70px;
+    width: 70px;
+    border: 2px solid #000000;
+}
+</style>
+</head>
+<body>
+    
+    <div class="topHeader" id="mapHeader">
+        <a href ="https://www.uwlax.edu/" title="Go to UW Lacrosse Home" id="logo" data-hveid="7"><img src="https://d28htnjz2elwuj.cloudfront.net/wp-content/uploads/2019/05/07160631/University-of-Wisconsin-La-Crosse-300x300.jpg" alt = "UW La Crosse" id = uwllogo></a>
+    </div>
+    
+<div id="map"></div>
+    <script>
+
+var corner1 = L.latLng(43.829, -91.250), corner2 = L.latLng(43.805,-91.215), bounds = L.latLngBounds(corner1,corner2);
+    
+    L.mapbox.accessToken = 'pk.eyJ1IjoibWF0dHBlY2swMCIsImEiOiJjanZ6ZXJkeGcwcG5hM3pwOGx4eTA4cjd6In0.4mPELfi1QtnaeZ7EbBuq-w';
+var map = L.mapbox.map('map')
+    .setView([43.816, -91.229], 16)
+    .addLayer(L.mapbox.styleLayer('mapbox://styles/mattpeck00/ck20uphjm06cw1cn2i6mk2hp7'));
+
+// loading GeoJSON file - Here my html and buildings.geojson file resides in same folder
+var buildings_style ={
+        "color": "#FF7F50"
+    }
+var buildings = $.getJSON('buildings.geojson',function(buildings){
+  // load GeoJSON from an external file
+    // add GeoJSON layer to the map once the file is loaded
+    L.geoJson(buildings,{
+        style: buildings_style 
+}).addTo(map).bindPopup("hello")
+});
+    
+ var landscaping_style ={
+     "color": '#84C860'
+ }
+ var landscaping = $.getJSON('landscaping5.geojson',function(landscaping){
+    L.geoJson(landscaping,{
+        style: landscaping_style
+    }).addTo(map)
+});
+    </script>
+</body>
+</html>
